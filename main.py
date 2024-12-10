@@ -147,9 +147,9 @@ async def send_instructions(message: types.Message):
 
     # Абсолютные пути к фотографиям
     photo_paths = [
-        r"C:\Users\komp\Desktop\AlipayBot\photo1.png",
-        r"C:\Users\komp\Desktop\AlipayBot\photo2.png",
-        r"C:\Users\komp\Desktop\AlipayBot\photo3.png"
+        "/home/ubuntu/AlipayBot/photo1.png",
+        "/home/ubuntu/AlipayBot/photo2.png",
+        "/home/ubuntu/AlipayBot/photo3.png"
     ]
 
     # Отправка фотографий через FSInputFile
