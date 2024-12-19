@@ -301,10 +301,11 @@ def set_user_language(telegram_id, language):
     conn.commit()
     conn.close()
 # Сохранение данных в базу
+# Сохранение данных в базу
 def save_user_data(data):
     conn = sqlite3.connect("users.db")
     cursor = conn.cursor()
-    cursor.execute('''INSERT INTO users (telegram_id, username, region, email, email_password, alipay_password, payment_pin, documents)
+    cursor.execute('''INSERT OR IGNORE INTO users (telegram_id, username, region, email, email_password, alipay_password, payment_pin, documents)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?)''', (
         data["telegram_id"], data["username"], data["region"], data["email"],
         data["email_password"], data["alipay_password"], data["payment_pin"],
