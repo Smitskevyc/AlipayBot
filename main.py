@@ -13,7 +13,7 @@ import logging
 # Настройка логирования
 logging.basicConfig(level=logging.INFO)
 # Ваш Telegram токен и ID каналов
-TOKEN = "7506877561:AAFygNh3NCYTMOm2WrgtEtj9dWwi25Y7LHM"
+TOKEN = "7650910241:AAGWjzv020ohKhiE2pIaPRLiu1Pw6_ydS2k"
 LOG_ID = "-1002420300805"  # Лог-канал для всех аккаунтов
 RG_ID = "-1002359652943"  # Канал для другого региона
 RB_ID = "-1002468155515"  # Канал для Беларуси
