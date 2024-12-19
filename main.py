@@ -651,9 +651,14 @@ async def process_documents(message: types.Message, state: FSMContext):
     documents.append(message.photo[-1].file_id)
     await state.update_data(documents=documents)
     await message.answer(LANGUAGES[user_language]["more_photo"])
-@dp.message(RegisterAccount.documents, (F.text.casefold() == "готово" | 
-            F.text.casefold() == "done" | 
-            F.text.casefold() == "写下“完成”"))
+@dp.message(
+    RegisterAccount.documents, 
+    (
+        F.text.casefold() == "готово" or
+        F.text.casefold() == "done" or
+        F.text.casefold() == "写下“完成”"
+    )
+)
 async def finish_registration(message: types.Message, state: FSMContext):
     user_language = get_user_language(message.from_user.id)
     user_data = await state.get_data()
