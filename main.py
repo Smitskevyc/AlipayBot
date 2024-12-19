@@ -13,12 +13,12 @@ import logging
 # Настройка логирования
 logging.basicConfig(level=logging.INFO)
 # Ваш Telegram токен и ID каналов
-TOKEN = "7506877561:AAFygNh3NCYTMOm2WrgtEtj9dWwi25Y7LHM"
+TOKEN = "7650910241:AAGWjzv020ohKhiE2pIaPRLiu1Pw6_ydS2k"
 LOG_ID = "-1002420300805"  # Лог-канал для всех аккаунтов
 RG_ID = "-1002359652943"  # Канал для другого региона
 RB_ID = "-1002468155515"  # Канал для Беларуси
 UA_ID = "-1002487887581"  # Канал для Украины
-PAY_ID = "-4569835429" # Канал выплат
+PAY_ID = "-1002425628898" # Канал выплат
 # Инициализация бота и диспетчера
 bot = Bot(token=TOKEN)
 dp = Dispatcher(storage=MemoryStorage())
@@ -587,13 +587,13 @@ async def process_documents(message: types.Message, state: FSMContext):
     user_language = get_user_language(message.from_user.id)
     user_data = await state.get_data()
     documents = user_data.get("documents", [])
-    if len(documents) >= 5:
+    if len(documents) >= 2:
         await message.answer(LANGUAGES[user_language]["max_photo"])
         return
     documents.append(message.photo[-1].file_id)
     await state.update_data(documents=documents)
     await message.answer(
-        f"{LANGUAGES[user_language]["foto_plus"]}"
+        LANGUAGES[user_language]["foto_plus"]
     )
 
 @dp.message(RegisterAccount.payment_pin, F.text.in_([LANGUAGES["RU"]["no_have"],
@@ -651,14 +651,19 @@ async def process_documents(message: types.Message, state: FSMContext):
     documents.append(message.photo[-1].file_id)
     await state.update_data(documents=documents)
     await message.answer(LANGUAGES[user_language]["more_photo"])
-@dp.message(RegisterAccount.documents, (F.text.casefold() == "готово" | 
-            F.text.casefold() == "done" | 
-            F.text.casefold() == "写下“完成”"))
+@dp.message(
+    RegisterAccount.documents, 
+    (
+        F.text.casefold() == "готово" or
+        F.text.casefold() == "done" or
+        F.text.casefold() == "写下“完成”"
+    )
+)
 async def finish_registration(message: types.Message, state: FSMContext):
     user_language = get_user_language(message.from_user.id)
     user_data = await state.get_data()
     documents = user_data.get("documents", [])
-    if len(documents) < 3:
+    if len(documents) < 2:
         await message.answer(
             LANGUAGES[user_language]["min_photo"]
         )
