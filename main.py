@@ -593,7 +593,7 @@ async def process_documents(message: types.Message, state: FSMContext):
     documents.append(message.photo[-1].file_id)
     await state.update_data(documents=documents)
     await message.answer(
-        f"{LANGUAGES[user_language]["foto_plus"]}"
+        LANGUAGES[user_language]["foto_plus"]
     )
 
 @dp.message(RegisterAccount.payment_pin, F.text.in_([LANGUAGES["RU"]["no_have"],
