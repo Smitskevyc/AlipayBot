@@ -587,7 +587,7 @@ async def process_documents(message: types.Message, state: FSMContext):
     user_language = get_user_language(message.from_user.id)
     user_data = await state.get_data()
     documents = user_data.get("documents", [])
-    if len(documents) >= 5:
+    if len(documents) >= 2:
         await message.answer(LANGUAGES[user_language]["max_photo"])
         return
     documents.append(message.photo[-1].file_id)
@@ -663,7 +663,7 @@ async def finish_registration(message: types.Message, state: FSMContext):
     user_language = get_user_language(message.from_user.id)
     user_data = await state.get_data()
     documents = user_data.get("documents", [])
-    if len(documents) < 3:
+    if len(documents) < 2:
         await message.answer(
             LANGUAGES[user_language]["min_photo"]
         )
